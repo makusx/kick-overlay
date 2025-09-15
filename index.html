@@ -4,43 +4,33 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <style>
-:root {
-  --bg-rgba: 0,0,0;
-  --bg-alpha: 0.36;
-  --text-size: 34px;
-  --gap: 12px;
-  --padding: 10px 16px;
-  --border-radius: 12px;
-  --top-percent: 12%;
-}
-
 html, body { height: 100%; margin: 0; background: transparent; }
 
 .overlay {
   position: fixed;
-  top: var(--top-percent);
-  left: -300px; /* start poza ekranem */
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: var(--gap);
-  padding: var(--padding);
-  border-radius: var(--border-radius);
-  background: rgba(var(--bg-rgba), var(--bg-alpha));
-  color: #ffffff;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.36);
+  color: #fff;
   font-family: "Montserrat", "Roboto", Arial, sans-serif;
   font-weight: 700;
-  font-size: var(--text-size);
+  font-size: 34px;
   pointer-events: none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  transition: left 0.6s ease, opacity 0.6s ease;
   opacity: 0;
+  transition: opacity 0.8s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
 .overlay img {
   width: 64px;
   height: 64px;
   object-fit: contain;
-  display: block;
   filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
 }
 </style>
@@ -53,21 +43,18 @@ html, body { height: 100%; margin: 0; background: transparent; }
 
 <script>
 const overlay = document.getElementById('overlay');
-
-const SHOW_TIME = 15000; // 15 sekund na ekranie
-const WAIT_TIME = 5000;   // 5 sekund przerwy
+const SHOW_TIME = 15000; // 15s widoczny
+const WAIT_TIME = 5000;  // 5s przerwy
 
 function cycleOverlay() {
   // pokaż overlay
   overlay.style.opacity = 1;
-  overlay.style.left = '20px';
 
   // po SHOW_TIME schowaj overlay
   setTimeout(() => {
-    overlay.style.left = '-300px';
     overlay.style.opacity = 0;
 
-    // po WAIT_TIME wywołaj ponownie cykl
+    // po WAIT_TIME uruchom ponownie cykl
     setTimeout(cycleOverlay, WAIT_TIME);
   }, SHOW_TIME);
 }
@@ -77,6 +64,8 @@ setTimeout(cycleOverlay, 500);
 </script>
 </body>
 </html>
+
+
 
 
 
