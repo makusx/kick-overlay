@@ -29,44 +29,7 @@ html, body { height: 100%; margin: 0; background: transparent; }
   color: #ffffff;
   font-family: "Montserrat", "Roboto", Arial, sans-serif;
   font-weight: 700;
-  font-size: var(--text-size);
-  pointer-events: none;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  transition: left 0.6s ease, opacity 0.6s ease;
-  opacity: 0;
-}
 
-.overlay img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
-}
-</style>
-</head>
-<body>
-<div id="overlay" class="overlay">
-  <img src="kick.png" alt="Kick">
-  <div id="nick">Makusx</div>
-</div>
-
-<script>
-const overlay = document.getElementById('overlay');
-
-const SHOW_TIME = 10000;  // 10 sekund na ekranie
-const INTERVAL = SHOW_TIME + 5000; // 10s widoczny + 5s przerwy = 15s
-
-function showOverlay() {
-  overlay.style.opacity = 1;
-  overlay.style.left = '20px'; // wysuwa się do pozycji 20px od lewej
-  setTimeout(() => {
-    overlay.style.left = '-300px'; // chowa się poza ekran
-    overlay.style.opacity = 0;
-  }, SHOW_TIME);
-}
-
-// uruchamiaj cykli
 
 
 
