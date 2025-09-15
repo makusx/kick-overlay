@@ -54,8 +54,8 @@ html, body { height: 100%; margin: 0; background: transparent; }
 <script>
 const overlay = document.getElementById('overlay');
 
-const SHOW_TIME = 10000; // 10 sekund na ekranie
-const INTERVAL = 5000;   // co 5 sekund nowa animacja
+const SHOW_TIME = 10000;  // 10 sekund na ekranie
+const INTERVAL = SHOW_TIME + 5000; // 10s widoczny + 5s przerwy = 15s
 
 function showOverlay() {
   overlay.style.opacity = 1;
@@ -66,13 +66,7 @@ function showOverlay() {
   }, SHOW_TIME);
 }
 
-// uruchamiaj co INTERVAL
-setInterval(showOverlay, INTERVAL);
+// uruchamiaj cykli
 
-// pokaz od razu po załadowaniu
-setTimeout(showOverlay, 500);
-</script>
-</body>
-</html>
 
 
