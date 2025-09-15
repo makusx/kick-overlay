@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+:root{
+  --bg-rgba: 0,0,0;         /* tło paska (rgb) */
+  --bg-alpha: 0.36;         /* przezroczystość paska */
+  --text-size: 34px;        /* rozmiar nicku */
+  --gap: 12px;              /* odstęp między logo a nickiem */
+  --padding: 10px 16px;     /* padding paska */
+  --border-radius: 12px;
+  --top-percent: 12%;       /* pozycja od góry */
+}
+html,body{height:100%;margin:0;background:transparent;}
+.overlay{
+  position:fixed;
+  left:50%;
+  top:var(--top-percent);
+  transform:translateX(-50%) translateY(-40px) scale(0.98);
+  display:flex;
+  align-items:center;
+  gap:var(--gap);
+  padding:var(--padding);
+  border-radius:var(--border-radius);
+  background: rgba(var(--bg-rgba), var(--bg-alpha));
+  color:#ffffff;
+  font-family: "Montserrat", "Roboto", Arial, sans-serif;
+  font-weight:700;
+  font-size:var(--text-size);
+  opacity:0;
+  pointer-events:none;
+  will-change: transform, opacity;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+.overlay img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  display:block;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
+}
+@keyframes slideIn {
+  0% { transform: translateX(-50%) translateY(-40px) scale(0.95); opacity:0; }
+  60% { transform: translateX(-50%) translateY(0) scale(1.03); opacity:1; }
+  100% { transform: translateX(-50%) translateY(0) scale(1); opacity:1; }
+}
+@keyframes slideOut {
+  0% { opacity:1; transform: translateX(-50%) translateY(0) scale(1); }
+  100% { opacity:0; transform: translateX(-50%) translateY(-40px) scale(0.95); }
+}
+.pulse{ animation: pulseAnim 1000ms ease-in-out; }
+@keyframes pulseAnim { 0%{ transform: scale(1);}50%{transform: scale(1.06);}100%{ transform: scale(1);} }
+</style>
+</head>
+<body>
+<div id="overlay" class="overlay" aria-hidden="true">
+  <img src="kick.png" id="kicklogo" alt="Kick">
+  <div id="nick">Makusx</div>
+</div>
+
+<script>
+/* --- KONFIGURACJA --- */
+const INTERVAL_SEC = 30;   // co ile sekund ma się pojawiać
+const SHOW_MS = 3800;      // czas widoczny (bez animacji out)
+const IN_MS = 700;         // czas animacji wjazdu
+const OUT_MS = 500;        // czas animacji wyjazdu
+/* -------------------- */
+
+const overlay = document.getElementById('overlay');
+
+function showOnce(){
+  overlay.style.display='flex';
+  overlay.style.animation = `slideIn ${IN_MS}ms cubic-bezier(.22,.9,.1,1) forwards`;
+  setTimeout(()=> overlay.classList.add('pulse'), IN_MS + 80);
+  setTimeout(()=> overlay.classList.remove('pulse'), IN_MS + SHOW_MS - 200);
+  setTimeout(()=>{
+    overlay.style.animation = `slideOut ${OUT_MS}ms ease-in forwards`;
+    setTimeout(()=> overlay.style.display='none', OUT_MS);
+  }, IN_MS + SHOW_MS);
+}
+
+// uruchom od razu po załadowaniu i potem co INTERVAL_SEC
+setTimeout(()=>{
+  showOnce();
+  setInterval(showOnce, INTERVAL_SEC * 1000);
+}, 800);
+</script>
+</body>
+</html>
